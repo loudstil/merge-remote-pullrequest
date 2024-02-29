@@ -18,7 +18,8 @@ async function run() {
       state: 'open'
     });
 
-    const pullRequestNumber = pullRequestResponse.data[0].number;
+    const pullRequestdata = pullRequestResponse.data[0];
+    const pullRequestNumber = pullRequestdata.number;
     console.log(`Pull request # ${pullRequestNumber}`);
     
     const pullRequestMergeResponse = await octokit.rest.pulls.merge({
@@ -28,6 +29,9 @@ async function run() {
     });
 
     console.log(`Pull request # ${pullRequestNumber} merged: ${pullRequestMergeResponse.data.merged}`);
+
+    const solutions = pullRequestdata.body.split('\n').slice(1).map(line => line.trim().substring(2)).join(";");
+    core.setOutput("solutions", solutions);
   } catch (error) {
     core.setFailed(error.message);
   }

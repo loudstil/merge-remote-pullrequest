@@ -1,5 +1,5 @@
 name: 'Merge Remote Pull Request'
-description: 'Creates a pull request across repositories.'
+description: 'Merge pull request across repositories and return the body of the pull request'
 runs:
   using: 'node12'
   main: 'index.js'
@@ -16,3 +16,6 @@ inputs:
   token:
     description: 'API token'
     required: false
+outputs:
+  solutions:
+    description: 'solutions names'
